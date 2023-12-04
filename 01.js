@@ -24,7 +24,33 @@ function findFirstRepeated(gifts) {
   });
   return minor;
 }
-
+function findFirstRepeated2(gifts) {
+  const map = new Map();
+  for (let i = 0; i < gifts.length; i++) {
+    if (map.has(gifts[i])) {
+      return gifts[i];
+    }
+    map.set(gifts[i], i);
+  }
+  return -1;
+}
+function findFirstRepeated3(gifts) {
+  /* 
+  Crear un nuevo Set.
+  Iterar sobre el array de regalos.
+  Si el Set ya contiene el regalo, retornar ese regalo.
+  Si no, agregar el regalo al Set.
+  Si no se encuentra ningún regalo repetido, retornar -1.
+   */
+  const set = new Set();
+  for (let i = 0; i < gifts.length; i++) {
+    if (set.has(gifts[i])) {
+      return gifts[i];
+    }
+    set.add(gifts[i]);
+  }
+  return -1;
+}
 const giftIds = [2, 1, 3, 5, 3, 2]
 const firstRepeatedId = findFirstRepeated(giftIds)
 console.log(firstRepeatedId) // 3
