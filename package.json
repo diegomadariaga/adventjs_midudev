@@ -1,0 +1,29 @@
+{
+  "name": "adventjs_midudev",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "start": "node 01.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diegomadariaga/adventjs_midudev.git"
+  },
+  "keywords": [],
+  "author": "diegomadariaga",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diegomadariaga/adventjs_midudev/issues"
+  },
+  "homepage": "https://github.com/diegomadariaga/adventjs_midudev#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "eslint": "^8.55.0",
+    "prettier": "3.1.0"
+  }
+}
