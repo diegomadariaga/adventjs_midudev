@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "start": "node 02.js"
+    "start": "ts-node 03.ts"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,8 @@
     "@typescript-eslint/eslint-plugin": "^6.13.1",
     "@typescript-eslint/parser": "^6.13.1",
     "eslint": "^8.55.0",
-    "prettier": "3.1.0"
+    "prettier": "3.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   }
 }
