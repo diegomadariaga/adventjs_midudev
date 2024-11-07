@@ -1,55 +1,39 @@
-function findTheKiller(whisper: string, suspects: string[]) {
+function findTheKiller(whisper: string, suspects: string[]): string {
   const result: Array<{ nombreSospechoso: string; concatenacion: string }> = [];
-  for (let i = 0; i < suspects.length; i++) {
-    const suspect = suspects[i];
+
+  for (const suspect of suspects) {
     const suspectArray = suspect.split("");
     const whisperArray = whisper.split("");
-    result.push({ nombreSospechoso: suspect, concatenacion: "" });
-    // si whisper termina con $ y el suspect tiene mas letras que el whisper continue
-    if (
-      whisperArray[whisperArray.length - 1] === "$" &&
-      suspect === "" && whisperArray.length === 1
-    ) {
-      return "";
-    }
+    let concatenacion = "";
 
-    if (
-      whisperArray[whisperArray.length - 1] === "$" &&
-      suspectArray.length > whisperArray.length - 1
-    ) {
+    if (whisperArray[whisperArray.length - 1] === "$" && suspectArray.length > whisperArray.length - 1) {
       continue;
     }
+
     for (let j = 0; j < whisperArray.length; j++) {
       if (whisperArray[j] === "$") {
-        continue;
+        break;
       }
-      if (
-        whisperArray[j] === "~" ||
-        (suspectArray[j] && whisperArray[j].toLowerCase() === suspectArray[j].toLowerCase())
-      ) {
-        result[i].concatenacion += whisperArray[j];
+      if (whisperArray[j] === "~" || (suspectArray[j] && whisperArray[j].toLowerCase() === suspectArray[j].toLowerCase())) {
+        concatenacion += whisperArray[j];
       } else {
-        result[i].concatenacion = "";
+        concatenacion = "";
         break;
       }
     }
-    if (result[i].concatenacion !== whisper.replace("$", "")) {
-      result.push({ nombreSospechoso: suspect, concatenacion: "" });
+
+    if (concatenacion === whisper.replace("$", "")) {
+      result.push({ nombreSospechoso: suspect, concatenacion });
     }
   }
+
   if (result.length === 0) {
     return "";
   }
   if (result.length === 1) {
     return result[0].nombreSospechoso;
   }
-  if (result.length > 1) {
-    // elimina los que tienen concatenacion vacia y une con , todos los nombreSospechoso
-    return result
-      .filter((r) => r.concatenacion !== "")
-      .map((r) => r.nombreSospechoso)
-      .join(",");
-  }
+  return result.filter(r => r.concatenacion !== "").map(r => r.nombreSospechoso).join(",");
 }
 
 const whisper = 'd~~~~~a';
