@@ -1,56 +1,77 @@
 function findTheKiller(whisper: string, suspects: string[]) {
-  const result = [];
+  const result: Array<{ nombreSospechoso: string; concatenacion: string }> = [];
   for (let i = 0; i < suspects.length; i++) {
-    if (
-      whisper.length > suspects[i].length &&
-      whisper[whisper.length - 1] !== "$"
-    ) {
-      continue;
-    }
     const suspect = suspects[i];
     const suspectArray = suspect.split("");
     const whisperArray = whisper.split("");
+    result.push({ nombreSospechoso: suspect, concatenacion: "" });
+    // si whisper termina con $ y el suspect tiene mas letras que el whisper continue
+    if (
+      whisperArray[whisperArray.length - 1] === "$" &&
+      suspect === "" && whisperArray.length === 1
+    ) {
+      return "";
+    }
+
+    if (
+      whisperArray[whisperArray.length - 1] === "$" &&
+      suspectArray.length > whisperArray.length - 1
+    ) {
+      continue;
+    }
     for (let j = 0; j < whisperArray.length; j++) {
-      console.log({
-        wletter: whisperArray[j],
-        suspectLetter: suspectArray[j],
-        suspect,
-        whisper,
-      });
-      if (
-        (whisperArray[j].toLocaleLowerCase() ===
-          suspectArray[j].toLocaleLowerCase() ||
-          whisperArray[j] === "~") &&
-        j === whisperArray.length - 1
-      ) {
-        result.push(suspect);
-      }
-      if (whisperArray[j] === "~" && j !== whisperArray.length - 1) {
+      if (whisperArray[j] === "$") {
         continue;
       }
       if (
-        whisperArray[j].toLocaleLowerCase() !==
-        suspectArray[j].toLocaleLowerCase()
+        whisperArray[j] === "~" ||
+        (suspectArray[j] && whisperArray[j].toLowerCase() === suspectArray[j].toLowerCase())
       ) {
+        result[i].concatenacion += whisperArray[j];
+      } else {
+        result[i].concatenacion = "";
         break;
       }
+    }
+    if (result[i].concatenacion !== whisper.replace("$", "")) {
+      result.push({ nombreSospechoso: suspect, concatenacion: "" });
     }
   }
   if (result.length === 0) {
     return "";
   }
   if (result.length === 1) {
-    return result[0];
+    return result[0].nombreSospechoso;
   }
   if (result.length > 1) {
-    return result.join(",");
+    // elimina los que tienen concatenacion vacia y une con , todos los nombreSospechoso
+    return result
+      .filter((r) => r.concatenacion !== "")
+      .map((r) => r.nombreSospechoso)
+      .join(",");
   }
 }
 
-const whisper = "~r~dd~";
-const suspects = ["Freddy", "Freddier", "Fredderic"];
+const whisper = 'd~~~~~a';
+const suspects = ['Dracula', 'Freddy Krueger', 'Jason Voorhees', 'Michael Myers'];
 
-//console.log(findTheKiller(whisper, suspects));
-console.log(
-  findTheKiller("~~~~~y$", ["Chucky", "Tiffany", "Freddy", "Mickey"]),
-);
+findTheKiller(whisper, suspects); // -> 'Dracula'
+console.log(findTheKiller(whisper, suspects));
+
+const whisper2 = '~r~dd~';
+const suspects2 = ['Freddy', 'Freddier', 'Fredderic']
+console.log(findTheKiller(whisper2, suspects2)); // -> 'Freddy,Freddier,Fredderic'
+
+
+const whisper3 = '~r~dd$';
+const suspects3 = ['Freddy', 'Freddier', 'Fredderic']
+
+findTheKiller(whisper3, suspects3); // -> ''
+console.log("this",findTheKiller(whisper3, suspects3));
+
+const whisper4 = 'mi~~def';
+const suspects4 = ['Midudev', 'Midu', 'Madeval']
+console.log(findTheKiller(whisper4, suspects4)); 
+
+findTheKiller(whisper4, suspects4); // -> ''
+
