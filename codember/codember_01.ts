@@ -12,20 +12,20 @@ function decrypt(cod:string, moves:string) {
     for (let i = 0; i < moves.length; i++) {
         const move = moves[i];
         const moveValue = dic[move];
-        if (move === "R" || move === "L") {
-            actualPosition = (actualPosition + moveValue)
-            if (actualPosition < 0) {
-                actualPosition = codeLength - 1;
-            } else if (actualPosition >= codeLength) {
-                actualPosition = 0;
-            }
-        }
         if (move === "D" || move === "U") {
             code[actualPosition] = (code[actualPosition] + moveValue)
             if (code[actualPosition] < 0) {
                 code[actualPosition] = 9;
             } else if (code[actualPosition] >= 9) {
                 code[actualPosition] = 0;
+            }
+        }
+        if (move === "R" || move === "L") {
+            actualPosition = (actualPosition + moveValue)
+            if (actualPosition < 0) {
+                actualPosition = codeLength - 1;
+            } else if (actualPosition >= codeLength) {
+                actualPosition = 0;
             }
         }
 
