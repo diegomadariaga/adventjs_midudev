@@ -16,7 +16,7 @@ function decrypt(cod:string, moves:string) {
             code[actualPosition] = (code[actualPosition] + moveValue)
             if (code[actualPosition] < 0) {
                 code[actualPosition] = 9;
-            } else if (code[actualPosition] >= 9) {
+            } else if (code[actualPosition] === 10) {
                 code[actualPosition] = 0;
             }
         }
