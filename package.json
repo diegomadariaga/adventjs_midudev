@@ -8,7 +8,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "start": "ts-node halloween_04.ts",
-    "codember": "ts-node ./codember/codember_01.ts"
+    "codember": "ts-node ./codember/challenge_02.ts"
   },
   "repository": {
     "type": "git",
