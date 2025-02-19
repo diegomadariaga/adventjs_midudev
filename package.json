@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "start": "ts-node 07.ts",
-    "codember": "ts-node ./codember/challenge_02.ts"
+    "codember": "ts-node ./codember/challenge_02.ts",
+    "codemars": "ts-node ./codemars/01.ts"
   },
   "repository": {
     "type": "git",
