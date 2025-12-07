@@ -1,23 +1,22 @@
 type Glove = { hand: string; color: string };
 
 function matchGloves(gloves: Glove[]): string[] {
-    const pairedGlovesIDX = [];
+    const missingPairs = [];
     const pairedGloves = [];
     for (let i = 0; i < gloves.length; i++) {
         const hand = gloves[i].hand;
         const color = gloves[i].color;
-        for (let j = i + 1; j < gloves.length; j++) {
-            const handJ = gloves[j].hand;
-            const colorJ = gloves[j].color;
-            const isNotPaired =
-                !pairedGlovesIDX.some(n => n === j) &&
-                !pairedGlovesIDX.some(n => n === i);
-            if (hand !== handJ && color === colorJ && isNotPaired) {
+        let foundPair = false;
+        for (const glove of missingPairs) {
+            if (glove.color === color && glove.hand !== hand) {
                 pairedGloves.push(color);
-                pairedGlovesIDX.push(i);
-                pairedGlovesIDX.push(j);
+                missingPairs.splice(missingPairs.indexOf(glove), 1);
+                foundPair = true;
                 break;
             }
+        }
+        if (!foundPair) {
+            missingPairs.push(gloves[i]);
         }
     }
     console.log(pairedGloves);
