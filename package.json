@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "start": "ts-node adventjs2025/04.ts",
+    "start": "ts-node adventjs2025/06.ts",
     "codember": "ts-node ./codember/challenge_02.ts",
     "codemars": "ts-node ./codemars/01.ts"
   },
